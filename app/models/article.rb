@@ -421,7 +421,8 @@ class Article < Content
     user.articles.create({
       body: body + other_article.body,
       comments: comments + other_article.comments,
-      title: title
+      title: title,
+      published: true
     })
   end
 
