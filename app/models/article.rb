@@ -417,7 +417,7 @@ class Article < Content
   end
 
   def merge_with(other_article)
-    other_article = Article.find_by_id(other_article) unless other_article.class == Article
+    other_article = find_by_id_or_return_other_article(other_article)
     user.articles.create({
       body: body + other_article.body,
       comments: comments + other_article.comments,
@@ -474,5 +474,11 @@ class Article < Content
     to = from + 1.day unless day.blank?
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
+  end
+
+  # Returns an article if an Article object is passed
+  # or finds an article by id if something else is passed
+  def find_by_id_or_return_other_article(other_article)
+    other_article.class == Article ? other_article : Article.find_by_id(other_article.to_i)
   end
 end
