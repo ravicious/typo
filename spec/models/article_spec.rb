@@ -630,5 +630,34 @@ describe Article do
     end
 
   end
-end
 
+  describe "#merge_with" do
+    before do
+      @first_article = Factory.create(:article)
+      @second_article = Factory.create(:article)
+      @second_article.update_attributes(title: 'Second title', body: 'Lorem ipsum dolor sit amet')
+
+      3.times { Factory(:comment, :article => @first_article) }
+      3.times { Factory(:comment, :article => @second_article) }
+    end
+
+    subject { @first_article.merge_with(@second_article) }
+
+    it "should contain the text of both articles" do
+      subject.body.should include(@first_article.body, @second_article.body)
+    end
+
+    it "should have one author (either one of the authors of the two original articles)" do
+      subject.user.should satisfy{|s| [@first_article.user, @second_article.user].include?(s) }
+    end
+
+    it "should contain comments of both articles" do
+      subject.comments.should include(*@first_article.comments, *@second_article.comments)
+    end
+
+    it "should have the title from either one of the merged articles" do
+      subject.title.should satisfy{|s| [@first_article.title, @second_article.title].include?(s) }
+    end
+  end
+
+end
