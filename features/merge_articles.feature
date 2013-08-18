@@ -27,7 +27,7 @@ Feature: Merge Articles
     And I fill in "article__body_and_extended_editor" with "This is the second article body"
     And I press "Publish"
     And I follow "Edit"
-    And I fill in "merge_with" with "2"
+    And I fill in "merge_with" with "4"
     And I press "Merge"
     Then I should be on the latest article page
     And I should see "This is the first article body"
