@@ -416,6 +416,15 @@ class Article < Content
     user.admin? || user_id == user.id
   end
 
+  def merge_with(other_article)
+    other_article = Article.find_by_id(other_article) unless other_article.class == Article
+    user.articles.create({
+      body: body + other_article.body,
+      comments: comments + other_article.comments,
+      title: title
+    })
+  end
+
   protected
 
   def set_published_at
