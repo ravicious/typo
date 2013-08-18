@@ -18,7 +18,7 @@ module NavigationHelpers
     when /^the new article page$/
       '/admin/content/new'
     when /^the latest article page$/
-      Article.order(:created_at).last.permalink_url
+      Article.order(:created_at).last.permalink_url(nil, true)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
