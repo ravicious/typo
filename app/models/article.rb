@@ -417,14 +417,18 @@ class Article < Content
   end
 
   def merge_with(other_article)
-    other_article = find_by_id_or_return_other_article(other_article)
-    raise(ArgumentError, 'an article cannot be merged with itself') if self.equal?(other_article)
-    user.articles.create({
-      body: body + other_article.body,
-      comments: comments + other_article.comments,
-      title: title,
-      published: true
-    })
+    other_article = find_article_for_merge(other_article)
+
+    unless articles_are_equal_or_dont_exist(self, other_article)
+      user.articles.create({
+        body: body + other_article.body,
+        comments: comments + other_article.comments,
+        title: title,
+        published: true
+      })
+    else
+      nil
+    end
   end
 
   protected
@@ -478,9 +482,17 @@ class Article < Content
     return from..to
   end
 
-  # Returns an article if an Article object is passed
-  # or finds an article by id if something else is passed
-  def find_by_id_or_return_other_article(other_article)
-    other_article.class == Article ? other_article : Article.find_by_id(other_article.to_i)
+  # Finds an article or returns a new one
+  # Keep in mind that other_article argument might be a number
+  def find_article_for_merge(other_article)
+    if other_article.class == Article
+      other_article
+    else
+      Article.find_by_id(other_article.to_i) || Article.new
+    end
+  end
+
+  def articles_are_equal_or_dont_exist(article_1, article_2)
+    article_1.equal?(article_2) || !Article.exists?(article_1.id) || !Article.exists?(article_2.id)
   end
 end
