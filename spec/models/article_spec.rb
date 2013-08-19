@@ -658,6 +658,10 @@ describe Article do
     it "should have the title from either one of the merged articles" do
       subject.title.should satisfy{|s| [@first_article.title, @second_article.title].include?(s) }
     end
+
+    it "should raise an error when trying to merge the same article" do
+      lambda { @first_article.merge_with(@first_article) }.should raise_error(ArgumentError, /an article cannot be merged with itself/)
+    end
   end
 
 end
