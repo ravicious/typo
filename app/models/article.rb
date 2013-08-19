@@ -418,6 +418,7 @@ class Article < Content
 
   def merge_with(other_article)
     other_article = find_by_id_or_return_other_article(other_article)
+    raise(ArgumentError, 'an article cannot be merged with itself') if self.equal?(other_article)
     user.articles.create({
       body: body + other_article.body,
       comments: comments + other_article.comments,
