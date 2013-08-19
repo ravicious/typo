@@ -119,7 +119,7 @@ class Admin::ContentController < Admin::BaseController
       flash[:notice] = 'Your articles has been successully merged.'
       redirect_to merged_article.permalink_url
     else
-      flash[:alert] = 'There was problems with merging your articles.'
+      flash[:alert] = 'There was a problem with merging your articles.'
       render 'new'
     end
   end
