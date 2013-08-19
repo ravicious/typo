@@ -662,6 +662,9 @@ describe Article do
     it "should return nil when trying to merge the same article" do
       @first_article.merge_with(@first_article).should be nil
     end
+
+    it "should return nil when trying to merge with non-existent article" do
+      @first_article.merge_with(100000000000000).should be nil
     end
   end
 
