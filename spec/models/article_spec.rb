@@ -668,7 +668,7 @@ describe Article do
     end
 
     it "should destroy merged articles" do
-      Article.should have(1).element
+      lambda { subject }.should change(Article, :count).by(-1)
     end
   end
 
