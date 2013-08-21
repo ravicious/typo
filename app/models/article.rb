@@ -420,6 +420,7 @@ class Article < Content
     other_article = find_article_for_merge(other_article)
 
     unless articles_are_equal_or_dont_exist(self, other_article)
+      self.destroy && other_article.destroy
       user.articles.create({
         body: body + other_article.body,
         comments: comments + other_article.comments,
