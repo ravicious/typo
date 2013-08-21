@@ -18,7 +18,7 @@ Feature: Merge Articles
 
   Scenario: Merge form is not shown for new articles
     Given I am logged into the admin panel as admin
-    And I am on the new article page
+    When I go to the new article page
     Then I should not see "Merge Articles"
 
   Scenario: When articles are merged, the merged article should contain the text of both previous articles
