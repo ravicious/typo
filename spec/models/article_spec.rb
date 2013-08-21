@@ -666,6 +666,10 @@ describe Article do
     it "should return nil when trying to merge with non-existent article" do
       @first_article.merge_with(100000000000000).should be nil
     end
+
+    it "should destroy merged articles" do
+      Article.should have(1).element
+    end
   end
 
 end
