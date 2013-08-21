@@ -426,7 +426,7 @@ class Article < Content
         title: title,
         published: true
       })
-      self.destroy && other_article.destroy
+      self.reload.destroy && other_article.reload.destroy
       new_article
     else
       nil
