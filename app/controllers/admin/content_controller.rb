@@ -115,12 +115,12 @@ class Admin::ContentController < Admin::BaseController
 
   def merge
     article = Article.find(params[:id])
-    if merged_article = article.merge_with(params[:merge_with])
+    if current_user.admin? && merged_article = article.merge_with(params[:merge_with])
       flash[:notice] = 'Your articles has been successully merged.'
       redirect_to merged_article.permalink_url
     else
-      flash[:alert] = 'There was a problem with merging your articles.'
-      render 'new'
+      flash[:error] = 'There was a problem with merging your articles.'
+      redirect_to :action => 'index'
     end
   end
 
