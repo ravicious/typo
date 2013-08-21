@@ -2,4 +2,4 @@
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
 
-<%= render('merge_form') %>
+<%= render('merge_form') if current_user.admin? && Article.exists?(@article.id) %>
