@@ -14,7 +14,7 @@ Feature: Create and Edit Categories
     And I fill in "Permalink" with "elite-jokes"
     And I fill in "Description" with "Funny jokes about programmers and coding"
     And I press "Save"
-    Then I should be on the admin categories page
+    Then I should be on the admin new category page
     And I should see "l33t jokes"
     And I should see "hacker"
     And I should see "elite-jokes"
@@ -30,7 +30,7 @@ Feature: Create and Edit Categories
     And I fill in "Permalink" with "earth-nature"
     And I fill in "Description" with "Best photos of Earth nature"
     And I press "Save"
-    Then I should be on the admin categories page
+    Then I should be on the admin new category page
     And I should see "Earth Nature"
     And I should see "earth"
     And I should see "earth-nature"
