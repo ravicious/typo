@@ -61,6 +61,16 @@ Given /^I am logged into the admin panel as ([^"]*)$/ do |login|
   end
 end
 
+Given /^I have created a category named "([^"]*)"$/ do |name|
+  steps %Q{
+    When I go to the admin categories page
+    When I fill in "Name" with "#{name}"
+    When I fill in "Keywords" with "bestcategory"
+    When I fill in "Description" with "This is the best category ever!"
+    When I press "Save"
+  }
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
